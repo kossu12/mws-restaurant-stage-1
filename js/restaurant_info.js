@@ -1,41 +1,10 @@
 let restaurant;
-var newMap;
+var map;
 
 /**
- * Initialize map as soon as the page is loaded.
+ * Initialize Google map, called from HTML.
  */
-document.addEventListener('DOMContentLoaded', (event) => {  
-  initMap();
-});
-
-/**
- * Initialize leaflet map
- */
-initMap = () => {
-  fetchRestaurantFromURL((error, restaurant) => {
-    if (error) { // Got an error!
-      console.error(error);
-    } else {      
-      self.newMap = L.map('map', {
-        center: [restaurant.latlng.lat, restaurant.latlng.lng],
-        zoom: 16,
-        scrollWheelZoom: false
-      });
-      L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
-        mapboxToken: '<your MAPBOX API KEY HERE>',
-        maxZoom: 18,
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-          '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-          'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        id: 'mapbox.streets'    
-      }).addTo(newMap);
-      fillBreadcrumb();
-      DBHelper.mapMarkerForRestaurant(self.restaurant, self.newMap);
-    }
-  });
-}  
- 
-/* window.initMap = () => {
+window.initMap = () => {
   fetchRestaurantFromURL((error, restaurant) => {
     if (error) { // Got an error!
       console.error(error);
@@ -49,7 +18,7 @@ initMap = () => {
       DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
     }
   });
-} */
+};
 
 /**
  * Get current restaurant from page URL.
@@ -148,24 +117,35 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
  */
 createReviewHTML = (review) => {
   const li = document.createElement('li');
+
+  const div = document.createElement('div');
+  div.classList.add('review-header');
+
   const name = document.createElement('p');
+  name.classList.add('review-name');
   name.innerHTML = review.name;
-  li.appendChild(name);
+  div.appendChild(name);
 
   const date = document.createElement('p');
+  date.classList.add('review-date');
   date.innerHTML = review.date;
-  li.appendChild(date);
+  div.appendChild(date);
+
+  li.appendChild(div);
 
   const rating = document.createElement('p');
+  rating.classList.add('review-rating');
   rating.innerHTML = `Rating: ${review.rating}`;
   li.appendChild(rating);
 
   const comments = document.createElement('p');
+  comments.classList.add('review-comments');
+
   comments.innerHTML = review.comments;
   li.appendChild(comments);
 
   return li;
-}
+};
 
 /**
  * Add restaurant name to the breadcrumb navigation menu
