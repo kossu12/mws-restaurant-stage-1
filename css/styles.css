@@ -286,3 +286,22 @@ nav h1 a {
   }
 }
 
+/* Media queries 600px */
+
+@media screen and (min-width: 600px) {
+  #restaurants-list {
+    padding: 20px 30px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+  #restaurants-list li {
+    padding: 0 30px 10px 30px;
+    margin: 15px;
+  }
+  #restaurant-container, #reviews-container {
+    padding: 20px 11px;
+    margin: auto;
+  }
+}
