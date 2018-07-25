@@ -310,7 +310,7 @@ nav h1 a {
 
 @media screen and (min-width: 1100px) {
   #reviews-container {
-    max-width: 1150px;
+    max-width: 1100px;
   }
   #reviews-list {
     flex-direction: row;
@@ -320,5 +320,13 @@ nav h1 a {
   }
   #reviews-list li {
     width: 48%;
+  }
+}
+
+/* Media queries 1400px */
+
+@media screen and (min-width: 1400px) {
+  .filter-options {
+    padding: 10px 30px 0 30px;
   }
 }
